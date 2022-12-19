@@ -1,8 +1,32 @@
 import 'package:music_app/common/models/music.dart';
 
-const mockMusic = {
-  '1': Music(id: '1', title: 'Overtime'),
-  '2': Music(id: '2', title: 'GATÚBELA'),
-  '3': Music(id: '3', title: '712PM'),
-  '4': Music(id: '4', title: 'Pink Venom'),
-};
+const mockMusic = [
+  Music(
+    id: '1',
+    title: 'Overtime',
+    artist: 'Chris Brown',
+    image: '',
+    time: '3:54',
+  ),
+  Music(
+    id: '2',
+    title: 'GATÚBELA',
+    artist: 'Chris Brown',
+    image: '',
+    time: '3:54',
+  ),
+  Music(
+    id: '3',
+    title: '712PM',
+    artist: 'Chris Brown',
+    image: '',
+    time: '3:54',
+  ),
+  Music(
+    id: '4',
+    title: 'Pink Venom',
+    artist: 'Chris Brown',
+    image: '',
+    time: '3:54',
+  ),
+];

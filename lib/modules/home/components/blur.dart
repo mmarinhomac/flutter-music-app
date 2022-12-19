@@ -20,9 +20,14 @@ class BlurCircle extends StatelessWidget {
       ),
       transform: Matrix4.translationValues(x, y, z),
       child: BackdropFilter(
-        filter: ui.ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+        filter: ui.ImageFilter.blur(
+          sigmaX: 100.0,
+          sigmaY: 100.0,
+        ),
         child: Container(
-          decoration: BoxDecoration(color: Colors.black.withOpacity(0.0)),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.0),
+          ),
         ),
       ),
     );
