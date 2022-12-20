@@ -13,4 +13,11 @@ class MusicProvider with ChangeNotifier {
   List<Music> get mostPopular {
     return [...items];
   }
+
+  String search = '';
+
+  void setSearch(String value) {
+    search = value;
+    notifyListeners();
+  }
 }

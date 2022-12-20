@@ -1,49 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
+import 'package:music_app/common/components/input.dart';
 import 'package:music_app/modules/home/components/blur.dart';
-import 'package:music_app/modules/home/provider/music.dart';
+
+import 'package:music_app/common/models/music.dart';
+import 'package:music_app/common/data/mock_music.dart';
+import 'package:music_app/modules/home/components/music_item_short.dart';
 
 class HomeDash extends StatelessWidget {
-  const HomeDash({super.key});
+  const HomeDash(this.onSearchUpdate, {super.key});
+
+  final List<Music> items = mockMusic;
+
+  final void Function(String value) onSearchUpdate;
 
   @override
   Widget build(BuildContext context) {
-    final MusicProvider musicContext = Provider.of(context);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+      ),
+    );
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-        ),
-      ),
-      body: Column(
+      body: ListView(
         children: [
-          Stack(
-            children: const [
-              BlurCircle(Color.fromRGBO(59, 8, 202, 35), 0.0, -150.0, 0.0),
-              BlurCircle(Color.fromRGBO(214, 114, 216, 25), 300.0, -200.0, 0.0),
-            ],
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Stack(
+              children: const [
+                BlurCircle(Color.fromRGBO(59, 8, 202, 35), 0.0, -150.0, 0.0),
+                BlurCircle(
+                    Color.fromRGBO(214, 114, 216, 25), 300.0, -200.0, 0.0),
+              ],
+            ),
           ),
           Container(
-              padding: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
-              transform: Matrix4.translationValues(0.0, -275.0, 0.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Good Evening ✨',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.start,
+            padding: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Good Evening ✨',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Text(
+                  textAlign: TextAlign.start,
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 18.0),
+                  child: const Text(
                     'what do you want do listen today?',
                     style: TextStyle(
                       color: Color.fromRGBO(167, 167, 167, 1),
@@ -51,9 +62,39 @@ class HomeDash extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.start,
-                  )
-                ],
-              ))
+                  ),
+                ),
+                InputTime(
+                  const Icon(Icons.search),
+                  'Search Album, Artist or Title...',
+                  (value) => onSearchUpdate(value),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0.0, 28.0, 0.0, 0.0),
+                  child: const Text(
+                    'Favorites',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                SizedBox(
+                  height: 240,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: items.length,
+                    itemBuilder: (context, index) => MusicItemShort(
+                      index,
+                      items.elementAt(index),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
