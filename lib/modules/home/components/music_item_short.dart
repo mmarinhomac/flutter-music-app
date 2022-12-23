@@ -11,8 +11,11 @@ class MusicItemShort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: index == 0 ? null : const EdgeInsets.fromLTRB(6, 0, 0, 0),
+      margin: index == 0
+          ? const EdgeInsets.fromLTRB(28, 0, 0, 0)
+          : const EdgeInsets.fromLTRB(6, 0, 0, 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRect(
             child: Container(
@@ -29,13 +32,17 @@ class MusicItemShort extends StatelessWidget {
             music.title,
             style: const TextStyle(
               color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
             ),
+            textAlign: TextAlign.start,
           ),
           Text(
             music.artist,
             style: const TextStyle(
               color: Colors.white,
             ),
+            textAlign: TextAlign.start,
           ),
         ],
       ),

@@ -25,35 +25,37 @@ class HomeDash extends StatelessWidget {
     );
 
     return Scaffold(
-      body: ListView(
-        children: [
-          Positioned(
-            left: 0,
-            top: 0,
-            child: Stack(
-              children: const [
-                BlurCircle(Color.fromRGBO(59, 8, 202, 35), 0.0, -150.0, 0.0),
-                BlurCircle(
-                    Color.fromRGBO(214, 114, 216, 25), 300.0, -200.0, 0.0),
-              ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Positioned(
+              left: 0,
+              top: 0,
+              child: Stack(
+                children: const [
+                  BlurCircle(Color.fromRGBO(59, 8, 202, 35), 0.0, -150.0, 0.0),
+                  BlurCircle(
+                      Color.fromRGBO(214, 114, 216, 25), 300.0, -200.0, 0.0),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
-            child: Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Good Evening ✨',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
+                Container(
+                  padding: const EdgeInsets.fromLTRB(28.0, 88.0, 28.0, 0.0),
+                  child: const Text(
+                    'Good Evening ✨',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                  textAlign: TextAlign.start,
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 18.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
                   child: const Text(
                     'what do you want do listen today?',
                     style: TextStyle(
@@ -64,13 +66,16 @@ class HomeDash extends StatelessWidget {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                InputTime(
-                  const Icon(Icons.search),
-                  'Search Album, Artist or Title...',
-                  (value) => onSearchUpdate(value),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(28.0, 18.0, 28.0, 0.0),
+                  child: InputTime(
+                    const Icon(Icons.search),
+                    'Search Album, Artist or Title...',
+                    (value) => onSearchUpdate(value),
+                  ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0.0, 28.0, 0.0, 0.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 0.0),
                   child: const Text(
                     'Favorites',
                     style: TextStyle(
@@ -92,10 +97,22 @@ class HomeDash extends StatelessWidget {
                     ),
                   ),
                 ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
+                  child: const Text(
+                    'Most popular',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
     );
