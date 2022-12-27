@@ -10,8 +10,11 @@ class MusicProvider with ChangeNotifier {
     return [...items];
   }
 
-  List<Music> get mostPopular {
-    return [...items];
+  List<Music> mostPopular = [];
+
+  void setMostPopular(List<Music> data) {
+    mostPopular = data;
+    notifyListeners();
   }
 
   String search = '';

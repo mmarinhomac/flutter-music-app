@@ -10,10 +10,12 @@ import 'package:music_app/modules/home/components/music_item_long.dart';
 import 'package:music_app/modules/home/components/music_item_short.dart';
 
 class HomeDash extends StatelessWidget {
-  const HomeDash(this.onSearchUpdate, this.onMusicSelect, {super.key});
+  const HomeDash(this.mostPopular, this.onSearchUpdate, this.onMusicSelect,
+      {super.key});
 
   final List<Music> items = mockMusic;
 
+  final List<Music> mostPopular;
   final void Function(String value) onSearchUpdate;
   final void Function(Music data) onMusicSelect;
 
@@ -117,11 +119,13 @@ class HomeDash extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: items.length,
-                  itemBuilder: (context, index) => MusicItemLong(
-                    index,
-                    items.elementAt(index),
-                  ),
+                  itemCount: mostPopular != null ? mostPopular.length : 1,
+                  itemBuilder: (context, index) => mostPopular != null
+                      ? MusicItemLong(
+                          index,
+                          mostPopular.elementAt(index),
+                        )
+                      : Text('Nenhum dado encontrado'),
                 ),
               ],
             ),

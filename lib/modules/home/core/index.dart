@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 import 'package:music_app/services/deezer.dart';
 
@@ -20,6 +21,23 @@ class HomeCore extends StatelessWidget {
     final MusicProvider musicContext = Provider.of(context);
     final PlayerProvider playerContext = Provider.of(context);
 
+    void initMostPopular(List result) {
+      try {
+        List<Music> data = result.map((item) {
+          return Music(
+            id: item['id'].toString(),
+            title: item['title_short'],
+            artist: item['artist']['name'],
+            image: item['album']['cover_medium'],
+            time: item['duration'].toString(),
+          );
+        }).toList();
+        musicContext.setMostPopular(data);
+      } catch (error) {
+        // handle error
+      }
+    }
+
     void onSearchUpdate(String value) {
       musicContext.setSearch(value);
     }
@@ -30,10 +48,15 @@ class HomeCore extends StatelessWidget {
     }
 
     return StatefulWrapper(
-      onInit: () {
-        DeezerService().getPosts();
+      onInit: () async {
+        Map response = await DeezerService().getMostPopular();
+        if (response['error'] == null) {
+          initMostPopular(response['result']);
+        } else {
+          // handle error
+        }
       },
-      child: HomeDash(onSearchUpdate, onMusicSelect),
+      child: HomeDash(musicContext.mostPopular, onSearchUpdate, onMusicSelect),
     );
   }
 }
