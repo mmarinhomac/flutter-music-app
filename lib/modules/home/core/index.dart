@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/modules/home/views/index.dart';
 import 'package:provider/provider.dart';
 
 import 'package:music_app/modules/home/providers/music.dart';
+import 'package:music_app/modules/player/providers/player.dart';
+
+import 'package:music_app/common/models/music.dart';
+
+import 'package:music_app/modules/home/views/index.dart';
 
 class HomeCore extends StatelessWidget {
   const HomeCore({super.key});
@@ -10,11 +14,17 @@ class HomeCore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MusicProvider musicContext = Provider.of(context);
+    final PlayerProvider playerContext = Provider.of(context);
 
     void onSearchUpdate(String value) {
       musicContext.setSearch(value);
     }
 
-    return HomeDash(onSearchUpdate);
+    void onMusicSelect(Music data) {
+      playerContext.setCurrentMusic(data);
+      Navigator.pushNamed(context, '/play');
+    }
+
+    return HomeDash(onSearchUpdate, onMusicSelect);
   }
 }

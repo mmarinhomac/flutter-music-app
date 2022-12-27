@@ -6,14 +6,16 @@ import 'package:music_app/modules/home/components/blur.dart';
 
 import 'package:music_app/common/models/music.dart';
 import 'package:music_app/common/data/mock_music.dart';
+import 'package:music_app/modules/home/components/music_item_long.dart';
 import 'package:music_app/modules/home/components/music_item_short.dart';
 
 class HomeDash extends StatelessWidget {
-  const HomeDash(this.onSearchUpdate, {super.key});
+  const HomeDash(this.onSearchUpdate, this.onMusicSelect, {super.key});
 
   final List<Music> items = mockMusic;
 
   final void Function(String value) onSearchUpdate;
+  final void Function(Music data) onMusicSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,7 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 0.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 24.0),
                   child: const Text(
                     'Favorites',
                     style: TextStyle(
@@ -93,12 +95,14 @@ class HomeDash extends StatelessWidget {
                     itemCount: items.length,
                     itemBuilder: (context, index) => MusicItemShort(
                       index,
+                      items.length,
                       items.elementAt(index),
+                      onMusicSelect,
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 24.0),
                   child: const Text(
                     'Most popular',
                     style: TextStyle(
@@ -107,6 +111,16 @@ class HomeDash extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                     textAlign: TextAlign.start,
+                  ),
+                ),
+                ListView.builder(
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) => MusicItemLong(
+                    index,
+                    items.elementAt(index),
                   ),
                 ),
               ],

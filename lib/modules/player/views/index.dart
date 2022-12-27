@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:music_app/common/models/music.dart';
+
+import 'package:music_app/modules/player/components/command_player.dart';
+import 'package:music_app/modules/player/components/header.dart';
+import 'package:music_app/modules/player/components/music_view.dart';
+import 'package:music_app/modules/player/components/progress_bar.dart';
+
 class Player extends StatelessWidget {
-  const Player({super.key});
+  const Player(this.music, this.onTogglePlay, {super.key});
+
+  final Music music;
+  final void Function() onTogglePlay;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        systemOverlayStyle:
-            const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
       ),
+    );
+
+    return Scaffold(
       body: Column(
         children: [
-          Container(
-              padding: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Good Evening ✨',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    'what do you want do listen today?',
-                    style: TextStyle(
-                      color: Color.fromRGBO(167, 167, 167, 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.start,
-                  )
-                ],
-              ))
+          const HeaderPlayer(),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  height: 54,
+                ),
+                MusicView(music),
+                ProgressBar(music),
+                const CommandPlayer(),
+                const SizedBox(
+                  height: 54,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
