@@ -9,10 +9,11 @@ import 'package:music_app/modules/player/components/music_view.dart';
 import 'package:music_app/modules/player/components/progress_bar.dart';
 
 class Player extends StatelessWidget {
-  const Player(this.music, this.onTogglePlay, {super.key});
+  const Player(this.music, this.onTogglePlay, this.onGoBack, {super.key});
 
   final Music music;
   final void Function() onTogglePlay;
+  final void Function() onGoBack;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class Player extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const HeaderPlayer(),
+          HeaderPlayer(onGoBack),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

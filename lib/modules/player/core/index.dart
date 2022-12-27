@@ -16,6 +16,10 @@ class PlayerCore extends StatelessWidget {
       playerContext.setTogglePlay();
     }
 
-    return Player(playerContext.music, onTogglePlay);
+    void onGoBack() {
+      Navigator.pushNamed(context, '/');
+    }
+
+    return Player(playerContext.music, onTogglePlay, onGoBack);
   }
 }

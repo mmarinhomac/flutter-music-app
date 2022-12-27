@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:music_app/services/deezer.dart';
+
+import 'package:music_app/common/utils/stateful_wrapper.dart';
+
 import 'package:music_app/modules/home/providers/music.dart';
 import 'package:music_app/modules/player/providers/player.dart';
 
@@ -25,6 +29,11 @@ class HomeCore extends StatelessWidget {
       Navigator.pushNamed(context, '/play');
     }
 
-    return HomeDash(onSearchUpdate, onMusicSelect);
+    return StatefulWrapper(
+      onInit: () {
+        DeezerService().getPosts();
+      },
+      child: HomeDash(onSearchUpdate, onMusicSelect),
+    );
   }
 }

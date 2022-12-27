@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HeaderPlayer extends StatelessWidget {
-  const HeaderPlayer({super.key});
+  const HeaderPlayer(this.onGoBack, {super.key});
+
+  final void Function() onGoBack;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class HeaderPlayer extends StatelessWidget {
         children: [
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () => {},
+            onPressed: () => onGoBack(),
             icon: const Icon(Icons.chevron_left),
             color: Colors.white,
             iconSize: 34,
