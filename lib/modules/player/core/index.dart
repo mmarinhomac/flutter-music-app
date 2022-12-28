@@ -16,13 +16,17 @@ class PlayerCore extends StatelessWidget {
 
     void onTogglePlay() async {
       try {
-        await player.setUrl(playerContext.music.preview);
-        await player.play();
+        if (playerContext.played) {
+          await player.pause();
+        } else {
+          await player.setUrl(playerContext.music.preview);
+          await player.play();
+        }
 
         playerContext.setTogglePlay();
       } catch (error) {
         // handle error
-        print(error);
+        // print(error);
       }
     }
 
