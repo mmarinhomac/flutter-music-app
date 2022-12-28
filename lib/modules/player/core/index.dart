@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:just_audio/just_audio.dart';
 
 import 'package:music_app/modules/player/providers/player.dart';
 
@@ -11,15 +12,30 @@ class PlayerCore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlayerProvider playerContext = Provider.of(context);
+    final player = AudioPlayer();
 
-    void onTogglePlay() {
-      playerContext.setTogglePlay();
+    void onTogglePlay() async {
+      try {
+        await player.setUrl(playerContext.music.preview);
+        await player.play();
+
+        playerContext.setTogglePlay();
+      } catch (error) {
+        // handle error
+        print(error);
+      }
     }
 
     void onGoBack() {
+      playerContext.setPlayedDefault();
       Navigator.pushNamed(context, '/');
     }
 
-    return Player(playerContext.music, onTogglePlay, onGoBack);
+    return Player(
+      playerContext.music,
+      playerContext.played,
+      onTogglePlay,
+      onGoBack,
+    );
   }
 }

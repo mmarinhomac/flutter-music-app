@@ -123,6 +123,7 @@ class HomeDash extends StatelessWidget {
                   itemBuilder: (context, index) => MusicItemLong(
                     index,
                     mostPopular.elementAt(index),
+                    onMusicSelect,
                   ),
                 ),
               ],

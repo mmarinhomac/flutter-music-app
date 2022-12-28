@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:music_app/common/models/music.dart';
 
 class PlayerProvider with ChangeNotifier {
-  bool play = true;
+  bool played = false;
   Music music = const Music(
-    id: '1',
-    title: 'Overtime',
-    artist: 'Chris Brown',
-    image: 'https://i.ytimg.com/vi/9bnDkvCs46g/maxresdefault.jpg',
-    time: '3:54',
+    id: '',
+    title: '',
+    artist: '',
+    image: '',
+    preview: '',
+    time: '',
   );
 
   void setTogglePlay() {
-    play = !play;
+    played = !played;
+    notifyListeners();
+  }
+
+  void setPlayedDefault() {
+    played = false;
+    notifyListeners();
   }
 
   void setCurrentMusic(Music data) {

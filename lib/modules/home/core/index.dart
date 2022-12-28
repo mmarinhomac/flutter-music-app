@@ -79,6 +79,7 @@ class HomeCore extends StatelessWidget {
             artist: item['artist']['name'],
             image: item['album']['cover_medium'],
             time: time,
+            preview: item['preview'],
           );
         }).toList();
         musicContext.setMostPopular(data);
@@ -106,8 +107,12 @@ class HomeCore extends StatelessWidget {
           // handle error
         }
       },
-      child: HomeDash(musicContext.favorites, musicContext.mostPopular,
-          onSearchUpdate, onMusicSelect),
+      child: HomeDash(
+        musicContext.favorites,
+        musicContext.mostPopular,
+        onSearchUpdate,
+        onMusicSelect,
+      ),
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CommandPlayer extends StatelessWidget {
-  const CommandPlayer({super.key});
+  const CommandPlayer(this.played, this.onPlay, {super.key});
+
+  final bool played;
+  final void Function() onPlay;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,10 @@ class CommandPlayer extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.play_circle_rounded),
+            onPressed: () => onPlay(),
+            icon: Icon(played
+                ? Icons.pause_circle_rounded
+                : Icons.play_circle_rounded),
             color: Colors.white,
             iconSize: 88,
           ),
