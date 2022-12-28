@@ -18,9 +18,9 @@ class MusicItemLong extends StatelessWidget {
             children: [
               ClipRect(
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 18, 0),
-                  height: 80,
-                  width: 80,
+                  margin: const EdgeInsets.fromLTRB(0, 0, 14, 0),
+                  height: 54,
+                  width: 54,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: FittedBox(
@@ -47,7 +47,7 @@ class MusicItemLong extends StatelessWidget {
                     music.artist,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w100,
                     ),
                     textAlign: TextAlign.start,
@@ -72,7 +72,7 @@ class MusicItemLong extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.favorite_border),
-                iconSize: 28,
+                iconSize: 24,
                 color: const Color.fromRGBO(190, 190, 190, 1),
                 onPressed: () {},
               ),

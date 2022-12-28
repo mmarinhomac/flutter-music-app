@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:music_app/common/data/mock_music.dart';
+import 'package:music_app/common/models/album.dart';
 import 'package:music_app/common/models/music.dart';
 
 class MusicProvider with ChangeNotifier {
-  final List<Music> items = [...mockMusic];
+  List<Album> favorites = [];
 
-  List<Music> get favorites {
-    return [...items];
+  void setFavorites(List<Album> data) {
+    favorites = data;
+    notifyListeners();
   }
 
   List<Music> mostPopular = [];

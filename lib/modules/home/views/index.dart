@@ -4,17 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:music_app/common/components/input.dart';
 import 'package:music_app/modules/home/components/blur.dart';
 
+import 'package:music_app/common/models/album.dart';
 import 'package:music_app/common/models/music.dart';
-import 'package:music_app/common/data/mock_music.dart';
+
 import 'package:music_app/modules/home/components/music_item_long.dart';
 import 'package:music_app/modules/home/components/music_item_short.dart';
 
 class HomeDash extends StatelessWidget {
-  const HomeDash(this.mostPopular, this.onSearchUpdate, this.onMusicSelect,
+  const HomeDash(
+      this.favorites, this.mostPopular, this.onSearchUpdate, this.onMusicSelect,
       {super.key});
 
-  final List<Music> items = mockMusic;
-
+  final List<Album> favorites;
   final List<Music> mostPopular;
   final void Function(String value) onSearchUpdate;
   final void Function(Music data) onMusicSelect;
@@ -79,9 +80,9 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 24.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 14.0),
                   child: const Text(
-                    'Favorites',
+                    'Albums',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
@@ -91,20 +92,19 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 240,
+                  height: 218,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: items.length,
+                    itemCount: favorites.length,
                     itemBuilder: (context, index) => MusicItemShort(
                       index,
-                      items.length,
-                      items.elementAt(index),
-                      onMusicSelect,
+                      favorites.length,
+                      favorites.elementAt(index),
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 24.0),
+                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 16.0),
                   child: const Text(
                     'Most popular',
                     style: TextStyle(
@@ -119,13 +119,11 @@ class HomeDash extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: mostPopular != null ? mostPopular.length : 1,
-                  itemBuilder: (context, index) => mostPopular != null
-                      ? MusicItemLong(
-                          index,
-                          mostPopular.elementAt(index),
-                        )
-                      : Text('Nenhum dado encontrado'),
+                  itemCount: mostPopular.length,
+                  itemBuilder: (context, index) => MusicItemLong(
+                    index,
+                    mostPopular.elementAt(index),
+                  ),
                 ),
               ],
             ),
