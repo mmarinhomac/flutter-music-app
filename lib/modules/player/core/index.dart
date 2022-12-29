@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
 
 import 'package:music_app/modules/player/providers/player.dart';
 
@@ -12,28 +12,39 @@ class PlayerCore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlayerProvider playerContext = Provider.of(context);
-    final player = AudioPlayer();
 
-    void onTogglePlay() async {
-      try {
-        if (playerContext.played) {
-          await player.pause();
-        } else {
-          await player.setUrl(playerContext.music.preview);
-          await player.play();
-        }
+    void onTogglePlay() {
+      playerContext.setTogglePlay();
+    }
 
-        playerContext.setTogglePlay();
-      } catch (error) {
-        // handle error
-        // print(error);
+    void onPause() {
+      print('onPause');
+      playerContext.player.pause();
+    }
+
+    void onPlay() async {
+      print('onPlay');
+      await PerfectVolumeControl.setVolume(0.75);
+      if (playerContext.source != playerContext.music.preview) {
+        await playerContext.setSource(playerContext.music.preview);
       }
+      playerContext.player.play();
     }
 
     void onGoBack() {
-      playerContext.setPlayedDefault();
+      onPause();
+      playerContext.setInitialState();
       Navigator.pushNamed(context, '/');
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // onPlay onPause
+      if (playerContext.played) {
+        onPlay();
+      } else {
+        onPause();
+      }
+    });
 
     return Player(
       playerContext.music,

@@ -14,9 +14,10 @@ class MusicItemLong extends StatelessWidget {
     return GestureDetector(
       onTap: () => onMusicSelect(music),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(28.0, 0, 28.0, 24.0),
+        margin: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 24.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [

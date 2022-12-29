@@ -15,9 +15,9 @@ class MusicItemShort extends StatelessWidget {
       onTap: () => {},
       child: Container(
         margin: index == 0
-            ? const EdgeInsets.fromLTRB(28, 0, 0, 0) // first item
+            ? const EdgeInsets.fromLTRB(16, 0, 0, 0) // first item
             : (index + 1 == length
-                ? const EdgeInsets.fromLTRB(16, 0, 28, 0) // last item
+                ? const EdgeInsets.fromLTRB(16, 0, 16, 0) // last item
                 : const EdgeInsets.fromLTRB(16, 0, 0, 0)), // middle items
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

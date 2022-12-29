@@ -58,10 +58,10 @@ class HomeCore extends StatelessWidget {
         List<Music> data = result.map((item) {
           // title
           final int titleLength = item['title_short'].toString().length;
-          final bool titleLong = titleLength >= 15;
+          final bool titleLong = titleLength >= 22;
           final String title = item['title_short']
                   .toString()
-                  .substring(0, titleLong ? 15 : titleLength) +
+                  .substring(0, titleLong ? 22 : titleLength) +
               (titleLong ? '...' : '');
 
           // time

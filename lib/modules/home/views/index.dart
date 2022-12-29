@@ -48,7 +48,7 @@ class HomeDash extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.fromLTRB(28.0, 88.0, 28.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 88.0, 16.0, 0.0),
                   child: const Text(
                     'Good Evening ✨',
                     style: TextStyle(
@@ -60,7 +60,7 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 0.0),
+                  margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
                   child: const Text(
                     'what do you want do listen today?',
                     style: TextStyle(
@@ -72,7 +72,7 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 18.0, 28.0, 0.0),
+                  margin: const EdgeInsets.fromLTRB(16.0, 18.0, 16.0, 0.0),
                   child: InputTime(
                     const Icon(Icons.search),
                     'Search Album, Artist or Title...',
@@ -80,7 +80,7 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 28.0, 28.0, 14.0),
+                  margin: const EdgeInsets.fromLTRB(16.0, 28.0, 16.0, 14.0),
                   child: const Text(
                     'Albums',
                     style: TextStyle(
@@ -104,7 +104,7 @@ class HomeDash extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 16.0),
+                  margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                   child: const Text(
                     'Most popular',
                     style: TextStyle(
