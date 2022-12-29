@@ -78,7 +78,11 @@ class HomeCore extends StatelessWidget {
       // canRequest Search
       if (musicContext.canRequestSearch) {
         musicContext.setCanRequestSearch(false);
-        onSearchRequest(musicContext.search);
+        if (musicContext.search.isNotEmpty) {
+          onSearchRequest(musicContext.search);
+        } else {
+          musicContext.setSearchedList([]);
+        }
       }
     });
 
