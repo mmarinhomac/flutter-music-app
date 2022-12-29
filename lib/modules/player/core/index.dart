@@ -18,12 +18,12 @@ class PlayerCore extends StatelessWidget {
       playerContext.setTogglePlay();
     }
 
-    void onPause() {
+    Future<void> onPause() async {
       playerContext.setCanUpdatePlayFalse();
-      playerContext.player.pause();
+      await playerContext.player.pause();
     }
 
-    void onPlay() async {
+    Future<void> onPlay() async {
       playerContext.setCanUpdatePlayFalse();
       if (playerContext.source != playerContext.music.preview) {
         await playerContext.setSource(playerContext.music.preview);
@@ -31,9 +31,8 @@ class PlayerCore extends StatelessWidget {
       playerContext.player.play();
     }
 
-    void onGoBack() {
+    void onGoBack() async {
       onPause();
-      playerContext.setInitialState();
       Navigator.pushNamed(context, '/');
     }
 
@@ -45,6 +44,7 @@ class PlayerCore extends StatelessWidget {
       // onLoad exec once
       if (playerContext.onLoad) {
         playerContext.setOnLoadFalse();
+        onTogglePlay();
         // ...
         playerContext.player.playerStateStream.listen((event) {
           if (event.processingState == ProcessingState.completed) {

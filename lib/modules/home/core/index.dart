@@ -69,6 +69,7 @@ class HomeCore extends StatelessWidget {
     }
 
     void onMusicSelect(Music data) {
+      playerContext.setInitialState();
       playerContext.setCurrentMusic(data);
       Navigator.pushNamed(context, '/play');
     }

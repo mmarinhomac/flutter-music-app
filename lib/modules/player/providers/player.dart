@@ -10,8 +10,8 @@ class PlayerProvider with ChangeNotifier {
     onLoad = false;
   }
 
-  bool canUpdatePlay = true;
-  bool played = true;
+  bool canUpdatePlay = false;
+  bool played = false;
   String source = '';
   final player = AudioPlayer();
 
@@ -50,7 +50,7 @@ class PlayerProvider with ChangeNotifier {
     music = data;
   }
 
-  double volume = 0.3;
+  double volume = 0.45;
 
   void setVolume(double volumeUpdated) {
     volume = volumeUpdated;
@@ -58,8 +58,9 @@ class PlayerProvider with ChangeNotifier {
   }
 
   void setInitialState() {
-    canUpdatePlay = true;
-    played = true;
+    onLoad = true;
+    canUpdatePlay = false;
+    played = false;
     source = '';
     music = const Music(
       id: '',
@@ -69,5 +70,6 @@ class PlayerProvider with ChangeNotifier {
       preview: '',
       time: '',
     );
+    volume = 0.45;
   }
 }
