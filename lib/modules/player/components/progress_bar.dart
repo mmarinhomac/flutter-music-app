@@ -51,7 +51,7 @@ class ProgressBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                '2:43',
+                '0:00',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,

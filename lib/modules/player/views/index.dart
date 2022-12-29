@@ -11,12 +11,15 @@ import 'package:music_app/modules/player/components/progress_bar.dart';
 
 class Player extends StatelessWidget {
   const Player(this.music, this.played, this.onTogglePlay, this.onGoBack,
+      this.volume, this.setVolume,
       {super.key});
 
   final Music music;
   final bool played;
   final void Function() onTogglePlay;
   final void Function() onGoBack;
+  final double volume;
+  final void Function(double volume) setVolume;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +40,10 @@ class Player extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const SizedBox(
-                        height: 54,
+                        height: 34,
                       ),
-                      MusicView(music),
+                      MusicView(music, volume, setVolume),
+                      const SizedBox(),
                       ProgressBar(music),
                       CommandPlayer(played, onTogglePlay),
                       const SizedBox(

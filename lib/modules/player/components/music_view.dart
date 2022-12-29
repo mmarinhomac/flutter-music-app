@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:music_app/common/models/music.dart';
 
 class MusicView extends StatelessWidget {
-  const MusicView(this.music, {super.key});
+  const MusicView(this.music, this.volume, this.setVolume, {super.key});
 
   final Music music;
+  final double volume;
+  final void Function(double volume) setVolume;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +47,25 @@ class MusicView extends StatelessWidget {
                       color: Colors.white,
                       iconSize: 18,
                     ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                      width: 4,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(28),
-                        color: const Color.fromRGBO(255, 255, 255, 0.40),
+                    RotatedBox(
+                      quarterTurns: -1,
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 0.0,
+                          ),
+                        ),
+                        child: Slider(
+                          min: 0.0,
+                          max: 1,
+                          value: volume,
+                          activeColor: Colors.white,
+                          inactiveColor:
+                              const Color.fromRGBO(255, 255, 255, 0.40),
+                          onChanged: (value) {
+                            setVolume(value);
+                          },
+                        ),
                       ),
                     ),
                     IconButton(
@@ -66,29 +80,26 @@ class MusicView extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
-            child: Column(
-              children: [
-                Text(
-                  music.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
+          Column(
+            children: [
+              Text(
+                music.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
                 ),
-                Text(
-                  music.artist,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w100,
-                  ),
+              ),
+              Text(
+                music.artist,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w100,
                 ),
-              ],
-            ),
-          )
+              ),
+            ],
+          ),
         ],
       ),
     );
