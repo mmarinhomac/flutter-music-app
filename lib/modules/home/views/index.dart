@@ -11,12 +11,13 @@ import 'package:music_app/modules/home/components/music_item_long.dart';
 import 'package:music_app/modules/home/components/music_item_short.dart';
 
 class HomeDash extends StatelessWidget {
-  const HomeDash(
-      this.favorites, this.mostPopular, this.onSearchUpdate, this.onMusicSelect,
+  const HomeDash(this.albums, this.mostPopular, this.searchedList,
+      this.onSearchUpdate, this.onMusicSelect,
       {super.key});
 
-  final List<Album> favorites;
+  final List<Album> albums;
   final List<Music> mostPopular;
+  final List<Music> searchedList;
   final void Function(String value) onSearchUpdate;
   final void Function(Music data) onMusicSelect;
 
@@ -79,35 +80,46 @@ class HomeDash extends StatelessWidget {
                     (value) => onSearchUpdate(value),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(16.0, 28.0, 16.0, 14.0),
-                  child: const Text(
-                    'Albums',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                SizedBox(
-                  height: 218,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: favorites.length,
-                    itemBuilder: (context, index) => MusicItemShort(
-                      index,
-                      favorites.length,
-                      favorites.elementAt(index),
+                Visibility(
+                  visible: searchedList.isEmpty,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(16.0, 28.0, 16.0, 14.0),
+                    child: const Text(
+                      'Albums',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
                   ),
                 ),
+                Visibility(
+                  visible: searchedList.isEmpty,
+                  child: SizedBox(
+                    height: 218,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: albums.length,
+                      itemBuilder: (context, index) => MusicItemShort(
+                        index,
+                        albums.length,
+                        albums.elementAt(index),
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-                  child: const Text(
-                    'Most popular',
-                    style: TextStyle(
+                  margin: EdgeInsets.fromLTRB(
+                    16.0,
+                    searchedList.isNotEmpty ? 14.0 : 0.0,
+                    16.0,
+                    16.0,
+                  ),
+                  child: Text(
+                    searchedList.isEmpty ? 'Most popular' : 'Results',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -119,10 +131,14 @@ class HomeDash extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: mostPopular.length,
+                  itemCount: searchedList.isNotEmpty
+                      ? searchedList.length
+                      : mostPopular.length,
                   itemBuilder: (context, index) => MusicItemLong(
                     index,
-                    mostPopular.elementAt(index),
+                    searchedList.isNotEmpty
+                        ? searchedList.elementAt(index)
+                        : mostPopular.elementAt(index),
                     onMusicSelect,
                   ),
                 ),
