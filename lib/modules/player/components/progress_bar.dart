@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:music_app/common/models/music.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar(this.music, {super.key});
+  const ProgressBar(this.music, this.currentTime, this.position, {super.key});
 
   final Music music;
+  final String currentTime;
+  final double position;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class ProgressBar extends StatelessWidget {
                   ),
                 ),
                 FractionallySizedBox(
-                  widthFactor: 0.4,
+                  widthFactor: position,
                   child: Container(
                     height: 4,
                     decoration: BoxDecoration(
@@ -50,9 +52,9 @@ class ProgressBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '0:00',
-                style: TextStyle(
+              Text(
+                currentTime,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                 ),

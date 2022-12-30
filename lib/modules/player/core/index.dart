@@ -44,12 +44,25 @@ class PlayerCore extends StatelessWidget {
       // onLoad exec once
       if (playerContext.onLoad) {
         playerContext.setOnLoadFalse();
-        onTogglePlay();
         // ...
+        onTogglePlay();
         playerContext.player.playerStateStream.listen((event) {
           if (event.processingState == ProcessingState.completed) {
             playerContext.onSongStop();
+            playerContext.setCurrentTime('0:30');
+            playerContext.setProgressBarPosition(1);
           }
+        });
+
+        playerContext.player.positionStream.listen((duration) {
+          String twoDigits(int n) => n.toString().padLeft(2, "0");
+          String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+          String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+          String time = '$twoDigitMinutes:$twoDigitSeconds';
+          playerContext.setCurrentTime(time);
+
+          double positionBar = (100 * duration.inSeconds / 30) / 100;
+          playerContext.setProgressBarPosition(positionBar);
         });
       }
 
@@ -76,6 +89,8 @@ class PlayerCore extends StatelessWidget {
       onGoBack,
       playerContext.volume,
       setVolume,
+      playerContext.currentTime,
+      playerContext.progressBarPosition,
     );
   }
 }

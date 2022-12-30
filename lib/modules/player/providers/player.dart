@@ -57,6 +57,20 @@ class PlayerProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  String currentTime = '0:00';
+
+  void setCurrentTime(String time) {
+    currentTime = time;
+    notifyListeners();
+  }
+
+  double progressBarPosition = 0.0;
+
+  void setProgressBarPosition(double position) {
+    progressBarPosition = position;
+    notifyListeners();
+  }
+
   void setInitialState() {
     onLoad = true;
     canUpdatePlay = false;
